@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "quickmark",
+    "description": "Typeahead enabled fast bookmarking",
+    "version": "1.0.0",
+    "browser_action": {
+        "default_title": "quickmark",
+        "default_icon": "resources/images/quickmark.png",
+        "default_popup": "popup.html"
+    },
+    "web_accessible_resources": [
+        "resources/images/quickmark.png"
+        ],
+    "permissions": [
+        "http://*/*",
+        "https://*/*",
+        "bookmarks"
+    ]
+}
