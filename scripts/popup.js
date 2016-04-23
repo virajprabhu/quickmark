@@ -44,9 +44,8 @@ function initAutocomplete(folderArr) {
 					title: tabs[0].title, 
 					url: tabs[0].url 
 				});
-				chrome.browserAction.setIcon({path: icon});
-			})
-			
+				// chrome.browserAction.setIcon({path: icon});
+			})			
 		}
 	});
 }
