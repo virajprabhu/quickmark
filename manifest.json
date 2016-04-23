@@ -8,12 +8,22 @@
         "default_icon": "resources/images/quickmark.png",
         "default_popup": "popup.html"
     },
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "windows": "Ctrl+Shift+B",
+                "mac": "Command+Shift+B",
+                "linux": "Ctrl+Shift+B"
+            }      
+        }
+    },
     "web_accessible_resources": [
         "resources/images/quickmark.png"
         ],
     "permissions": [
         "http://*/*",
         "https://*/*",
-        "bookmarks"
+        "bookmarks",
+        "tabs"
     ]
 }

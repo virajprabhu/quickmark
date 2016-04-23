@@ -1,3 +1,19 @@
+/* highlight results */
+.ui-autocomplete span.hl_results {
+    background-color: #ffff66;
+}
+
 .ui-autocomplete {
-  z-index: 10000000;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ui-autocomplete .ui-menu-item a {
+    padding-right: 20px;
+    white-space: nowrap;
+}
+
+.ui-widget {
+	height: 100px;
 }
