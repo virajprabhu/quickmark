@@ -4,7 +4,8 @@
 }
 
 .ui-autocomplete {
-    max-height: 200px;
+	position: static;
+    max-height: 100px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -12,8 +13,4 @@
 .ui-autocomplete .ui-menu-item a {
     padding-right: 20px;
     white-space: nowrap;
-}
-
-.ui-widget {
-	height: 100px;
 }

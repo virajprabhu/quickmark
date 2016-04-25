@@ -8,5 +8,5 @@ todo
 * [feature]: add/remove folder
 * [feature]: undo bookmark add
 * [logic]: better filtering
-* [ui-enhancements]: better styling
+* ~~[ui-enhancements]: dynamically resize popup height~~
 * [ui-enhancements]: change icon on success

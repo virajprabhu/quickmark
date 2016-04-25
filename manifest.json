@@ -18,8 +18,9 @@
         }
     },
     "web_accessible_resources": [
-        "resources/images/quickmark.png"
-        ],
+        "resources/images/quickmark.png",
+        "resources/images/quickmarked.png"
+    ],
     "permissions": [
         "http://*/*",
         "https://*/*",

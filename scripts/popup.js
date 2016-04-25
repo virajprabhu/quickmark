@@ -21,7 +21,13 @@ function getFolderArr(callback) {
 	});
 }
 
-
+function changeIconCallback() {
+	if (chrome.runtime.lastError) {
+		console.log(chrome.runtime.lastError.message);
+	} else {
+		// tab exists, do nothing
+	}
+}
 // initalize jquery-ui autocomplete
 function initAutocomplete(folderArr) {
 	// folderArr.forEach(function(folder) {
@@ -44,7 +50,11 @@ function initAutocomplete(folderArr) {
 					title: tabs[0].title, 
 					url: tabs[0].url 
 				});
-				// chrome.browserAction.setIcon({path: icon});
+				console.log(tabs[0].id);
+				chrome.browserAction.setIcon({
+					path: "resources/images/quickmarked.png",
+					tabId: tabs[0].id
+				}, changeIconCallback);
 			})			
 		}
 	});
@@ -52,4 +62,3 @@ function initAutocomplete(folderArr) {
 
 // pass autocomplete init as callback
 getFolderArr(initAutocomplete);
-
