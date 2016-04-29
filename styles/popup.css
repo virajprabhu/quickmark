@@ -14,3 +14,12 @@
     padding-right: 20px;
     white-space: nowrap;
 }
+
+#create-link-container {
+	display: none;
+	width: 100%;
+	margin-top: 5px;
+	text-align: center;
+	text-decoration: underline;
+	cursor: pointer;
+}

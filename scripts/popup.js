@@ -2,6 +2,7 @@
 // then initialize jquery-ui autocomplete
 function getFolderArr(callback) {
 	var folderArr = [];
+
 	// recursively collect bookmark folders, top down
 	function getBookmarks(bookmarks) {
 		bookmarks.forEach(function(bookmark) {
@@ -14,6 +15,7 @@ function getFolderArr(callback) {
 			}
 		});
 	}
+
 	// chrome bookmarks api to get entire bookmarktreenode tree
 	chrome.bookmarks.getTree(function(bookmarks) {
 		getBookmarks(bookmarks);
@@ -28,21 +30,63 @@ function changeIconCallback() {
 		// tab exists, do nothing
 	}
 }
+
 // initalize jquery-ui autocomplete
 function initAutocomplete(folderArr) {
-	// folderArr.forEach(function(folder) {
-	// 	console.log(folder.id + " : " + folder.value);
-	// });
+
+	// create bookmark folder and bookmark current url to it
+	function createBookmarkFolder(title) {
+		chrome.bookmarks.create({
+			title: title
+		}, function (result) {
+			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+				chrome.bookmarks.create({
+					parentId: result.id,
+					title: tabs[0].title,
+					url: tabs[0].url
+				});
+			});
+		});
+	}
+
+	// make create prompt visible on no results
+	$("#create-link-container").click(function() {
+		var title = $("#tags").val();
+		createBookmarkFolder(title);
+	});
+
+	// searches folderArr by name and returns id if found
+	function findFolderId(folderName) {
+		var idArr = $.grep(folderArr, function(e) {
+			return e.value === folderName;
+		});
+		if (idArr.length === 0) {
+			return -1;
+		}
+		return idArr[0].id;
+	}
+
 	var isSelected = false;
+
+	// init jquery autocomplete
 	$("#tags").autocomplete({
 		minLength: 0,
 		source: folderArr,
+
+		// display create prompt if no folder matching query found
+		response: function(event, ui) {
+			if (ui.content.length === 0) {
+				$("#create-link-container").css("display", "inline-block");
+			} else {
+				$("#create-link-container").css("display", "none");
+			}
+		},
+
+		// on select, create bookmark in chosen folder
 		select: function(event, ui) {
 			isSelected = true;
 			var selectedFolderValue = $(event.target).val(ui.item.value)[0].value;
-			var selectedFolderId = $.grep(folderArr, function(e) {
-				return e.value === selectedFolderValue;
-			})[0].id;
+			var selectedFolderId = findFolderId(selectedFolderValue);
 			// console.log(selectedFolderId + " : " + selectedFolderValue);
 			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 				chrome.bookmarks.create({
@@ -50,12 +94,12 @@ function initAutocomplete(folderArr) {
 					title: tabs[0].title, 
 					url: tabs[0].url 
 				});
-				console.log(tabs[0].id);
-				chrome.browserAction.setIcon({
-					path: "resources/images/quickmarked.png",
-					tabId: tabs[0].id
-				}, changeIconCallback);
-			})			
+				// todo: change image on success
+				// chrome.browserAction.setIcon({
+				// 	path: "resources/images/quickmarked.png",
+				// 	tabId: tabs[0].id
+				// }, changeIconCallback);
+			});			
 		}
 	});
 }
